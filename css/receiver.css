@@ -1,0 +1,13 @@
+body {
+  --playback-logo-image: url('images/icon.png');
+}
+cast-media-player {
+  --theme-hue: 100;
+  --progress-color: rgb(1, 50, 57);
+  --splash-image: url('images/icon.png');
+  --logo-image: url('images/icon.png');
+  --splash-size: 100px 100px;
+}
+iframe {
+  visibility: hidden;
+}
