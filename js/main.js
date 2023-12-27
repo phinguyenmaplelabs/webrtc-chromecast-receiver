@@ -242,11 +242,11 @@ function tryConnectingWebSocketAlternativePort() {
     }, 1500);
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+// function sleep(ms) {
+//   return new Promise(resolve => setTimeout(resolve, ms));
+// }
 
-sleep(2000).then(() => { 
-    var video = document.getElementById('video');
-    video.play();
- });
+// sleep(2000).then(() => { 
+//     var video = document.getElementById('video');
+//     video.play();
+//  });
