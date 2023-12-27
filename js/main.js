@@ -249,4 +249,5 @@ function sleep(ms) {
 sleep(2000).then(() => { 
     var video = document.getElementById('video');
     video.muted = false;
+    video.volume = 1.0;
  });
