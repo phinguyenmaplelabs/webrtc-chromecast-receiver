@@ -26,9 +26,9 @@ function main() {
 	*/
 	ctx.addCustomMessageListener(CHANNEL, function(customEvent) {
 		var js = customEvent.data;
-		if (js.type == 'iframe') {
+		if (js.type == 'webrtc') {
 			playerManager.stop();
-
+			showWebRTC();
 		}else if (js.type == 'close_browser') {
 			showCastPlayer();
 		}

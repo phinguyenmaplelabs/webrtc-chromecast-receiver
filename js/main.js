@@ -6,7 +6,7 @@ var connected = false,
     socket = null,
     alternatePort = false,
     oldObjectURL = null;
-document.getElementById('status').innerHTML = '⏳ Loading...', document.getElementById('video').style.display = 'none', document.getElementById('image').style.display = 'none';
+    document.getElementById('video').style.display = 'none', document.getElementById('image').style.display = 'none';
 
 function shouldUseBasicMode() {
     var browser = getBrowser();
@@ -59,7 +59,6 @@ function getBrowserVersion() {
 }
 
 function init(isLimited) {
-    document.getElementById('status').innerHTML = '✅ Connected!</p><p>Start the broadcast session on your iOS Device.';
     var mode = isLimited ? 'limited' : 'full',
         json = JSON.stringify({
             'mode': mode
@@ -71,7 +70,7 @@ function init(isLimited) {
 }
 
 function initBasicMode() {
-    document.getElementById('status').innerHTML = '✅ Connected!</p><p>Start the broadcast session on your iOS Device.</p><p style=\'color:#CACACA\'>Note: Using a limited mode without audio. It can take up to half a minute to start casting.', startBasicMode(8883);
+    startBasicMode(8883);
 }
 
 function startBasicMode(port) {
@@ -82,7 +81,6 @@ function startBasicMode(port) {
             document.getElementById('image').src = objectURL, oldObjectURL && URL.revokeObjectURL(oldObjectURL), oldObjectURL = objectURL;
         } else {
             if (typeof message.data == 'string') {
-                document.getElementById('status').innerHTML = '';
                 switch (message.data) {
                 case '0':
                     document.getElementById('image').style.objectFit = 'contain';
@@ -129,8 +127,7 @@ function initRtcMode() {
         case 'disconnected':
             console.log('disconnected'), closeSocket();
         case 'failed':
-            console.log('failed'), document.getElementById('status').innerHTML = 
-                '🔘 Session ended!</p><p>Please refresh the tab to start a new session.';
+            console.log('failed');
             break;
         case 'closed':
             console.log('closed');
@@ -161,13 +158,12 @@ function setRemoteDescription(remoteDescription) {
                 'type': 'application/json'
             });
         if (socket == null) return;
-        socket.send(data), connected = true, document.getElementById('status').innerHTML = '';
+        socket.send(data), connected = true;
     }).catch(handleRtcError);
 }
 
 function handleRtcError(msgError) {
-    console.log(msgError), document.getElementById('status').innerHTML = 
-                '⛔️ Sorry this browser is not yet supported!</p><p>Please try with the latest version of Apple Safari™, Google Chrome™ or Microsoft Edge™.', document.getElementById('errorElement').innerHTML = msgError;
+    console.log(msgError);
 }
 
 function onIceCandidate(_0x36634a, _0x1aab27) {
