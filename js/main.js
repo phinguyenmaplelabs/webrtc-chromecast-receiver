@@ -237,12 +237,3 @@ function tryConnectingWebSocketAlternativePort() {
         socket.close(), alternatePort = !alternatePort, alternatePort ? connect(8881) : connect(8880);
     }, 1500);
 }
-
-// function sleep(ms) {
-//   return new Promise(resolve => setTimeout(resolve, ms));
-// }
-
-// sleep(2000).then(() => { 
-//     var video = document.getElementById('video');
-//     video.play();
-//  });

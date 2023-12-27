@@ -29,8 +29,14 @@ function main() {
 		if (js.type == 'webrtc') {
 			playerManager.stop();
 			showWebRTC();
-		}else if (js.type == 'close_browser') {
+		} else if (js.type == 'close_browser') {
 			showCastPlayer();
+		} else if (js.type == 'muted') {
+			document.getElementById("video").muted = false;
+		} else if (js.type == 'play') {
+			document.getElementById("video").play();
+		}else if (js.type == 'pause') {
+			document.getElementById("video").pause();
 		}
 	});
 	/*
