@@ -28,7 +28,6 @@ function main() {
 		var js = customEvent.data;
 		if (js.type == 'iframe') {
 			playerManager.stop();
-			imageControl.startStream(js.url);
 
 		}else if (js.type == 'close_browser') {
 			showCastPlayer();
