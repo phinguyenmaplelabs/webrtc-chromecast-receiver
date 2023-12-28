@@ -28,13 +28,15 @@ function main() {
 	*/
 	ctx.addCustomMessageListener(CHANNEL, function(customEvent) {
 		var js = customEvent.data;
-		console.log(js);
 		if (js.type == 'WEB_RTC') {
-			showWebRTC(js.ip);
+			showWebRTC(js.ip, js.port);
 		} else if (js.type == 'CAST_PLAYER') {
 			showCastPlayer();
 		} else if (js.type == 'SPLASH_SCREEN') {
 			showSplashScreen(js.url);
+		} else if (js.type == 'TEXT') {
+			console.log('TEXT: ' + js.text);
+			// To Do
 		}
 	});
 	/*
@@ -53,7 +55,7 @@ function showCastPlayer() {
 	document.getElementById("splash").style.display 			= 'none';
 }
 
-function showWebRTC(ip) {
+function showWebRTC(ip, port) {
 	playerManager.stop();
 	document.getElementById("cast_player").style.display 	= 'none';
 	document.getElementById("video").style.display 				= 'inline';
@@ -77,7 +79,7 @@ function showSplashScreen(url) {
 	document.getElementById("cast_player").style.display 	= 'none';
 	document.getElementById("video").style.display 				= 'none';
 	document.getElementById("splash").style.display 			= 'inline';
-	document.getElementById("splash").src = url;
+	document.getElementById("splash").src 								= url;
 }
 
 
