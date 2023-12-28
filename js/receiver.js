@@ -51,14 +51,6 @@ function showCastPlayer() {
 	document.getElementById("cast_player").style.display 	= 'inline';
 	document.getElementById("video").style.display 				= 'none';
 	document.getElementById("splash").style.display 			= 'none';
-	const video = document.getElementById("video");
-	video.addEventListener("durationchange", (event) => {
-		if (video.playing) {
-			if (video.duration - video.currentTime > 3) {
-				video.currentTime = video.duration;
-			}
-		}
-	});
 }
 
 function showWebRTC(ip) {
@@ -67,6 +59,14 @@ function showWebRTC(ip) {
 	document.getElementById("video").style.display 				= 'inline';
 	document.getElementById("splash").style.display 			= 'none';
 	connectWebRTC(ip);
+	const video = document.getElementById("video");
+	video.addEventListener("durationchange", (event) => {
+		if (video.playing) {
+			if (video.duration - video.currentTime > 2) {
+				video.currentTime = video.duration;
+			}
+		}
+	});
 }
 
 function showSplashScreen(url) {
