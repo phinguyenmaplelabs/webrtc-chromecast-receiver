@@ -1,14 +1,14 @@
 
 import { connectWebRTC, disconnectWebRTC } from './webrtc.js';
+const CHANNEL 				= 'urn:x-cast:com.tvcast.chromecast';
+const ctx 						= cast.framework.CastReceiverContext.getInstance();
+const playerManager 	= ctx.getPlayerManager();
+const commands      	= cast.framework.messages.Command;
+const playbackConfig 	= new cast.framework.PlaybackConfig();
 
 main();
 
 function main() {
-	const CHANNEL 				= 'urn:x-cast:com.tvcast.chromecast';
-	const ctx 						= cast.framework.CastReceiverContext.getInstance();
-	const playerManager 	= ctx.getPlayerManager();
-	const commands      	= cast.framework.messages.Command;
-	const playbackConfig 	= new cast.framework.PlaybackConfig();
 	var options 					= new cast.framework.CastReceiverOptions();
 	/*
 	*	Handle Player
@@ -29,17 +29,12 @@ function main() {
 	*/
 	ctx.addCustomMessageListener(CHANNEL, function(customEvent) {
 		var js = customEvent.data;
-		if (js.type == 'webrtc') {
-			playerManager.stop();
+		if (js.type == 'WEB_RTC') {
 			showWebRTC(js.ip);
-		} else if (js.type == 'close_browser') {
+		} else if (js.type == 'CAST_PLAYER') {
 			showCastPlayer();
-		} else if (js.type == 'muted') {
-			document.getElementById("video").muted = false;
-		} else if (js.type == 'play') {
-			document.getElementById("video").play();
-		}else if (js.type == 'pause') {
-			document.getElementById("video").pause();
+		} else if (js.type == 'SPLASH_SCREEN') {
+			showSplashScreen(js.url);
 		}
 	});
 	/*
@@ -55,14 +50,25 @@ function showCastPlayer() {
 	disconnectWebRTC();
 	document.getElementById("cast_player").style.visibility = 'visible';
 	document.getElementById("video").style.visibility 			= 'hidden';
+	document.getElementById("splash").style.visibility 			= 'hidden';
 }
 
 function showWebRTC(ip) {
+	playerManager.stop();
 	document.getElementById("cast_player").style.visibility = 'hidden';
 	document.getElementById("video").style.visibility 			= 'visible';
+	document.getElementById("splash").style.visibility 			= 'hidden';
 	connectWebRTC(ip);
 }
 
+function showSplashScreen(url) {
+	playerManager.stop();
+	disconnectWebRTC();
+	document.getElementById("cast_player").style.visibility = 'hidden';
+	document.getElementById("video").style.visibility 			= 'hidden';
+	document.getElementById("splash").style.visibility 			= 'visible';
+	document.getElementById("splash").src = url;
+}
 
 
 

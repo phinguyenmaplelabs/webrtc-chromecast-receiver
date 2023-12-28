@@ -237,12 +237,12 @@ function tryConnectingWebSocketAlternativePort(ip) {
     }, 1500);
 }
 
-function connectWebRTC(ip) {
+export function connectWebRTC(ip) {
     connect(ip, 8880);
     tryConnectingWebSocketAlternativePort(ip);
 }
 
-function disconnectWebRTC() {
+export function disconnectWebRTC() {
     closeSocket();
     peerConnection.close();
     connected       = false;
@@ -252,8 +252,6 @@ function disconnectWebRTC() {
     alternatePort   = false;
     oldObjectURL    = null;
 }
-
-export { connectWebRTC, disconnectWebRTC };
 
 
 
