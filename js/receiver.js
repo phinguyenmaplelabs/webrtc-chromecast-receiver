@@ -28,6 +28,7 @@ function main() {
 	*/
 	ctx.addCustomMessageListener(CHANNEL, function(customEvent) {
 		var js = customEvent.data;
+		console.log(js);
 		if (js.type == 'WEB_RTC') {
 			showWebRTC(js.ip);
 		} else if (js.type == 'CAST_PLAYER') {
