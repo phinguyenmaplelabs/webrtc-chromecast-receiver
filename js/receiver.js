@@ -1,5 +1,4 @@
 
-import { connectWebRTC, disconnectWebRTC } from './webrtc.js';
 const CHANNEL 				= 'urn:x-cast:com.tvcast.chromecast';
 const ctx 						= cast.framework.CastReceiverContext.getInstance();
 const playerManager 	= ctx.getPlayerManager();
