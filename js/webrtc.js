@@ -6,7 +6,7 @@ var connected = false,
     socket = null,
     alternatePort = false,
     oldObjectURL = null;
-    document.getElementById('video').style.display = 'none', document.getElementById('splash').style.display = 'none';
+    document.getElementById('video').style.display = 'none';
 
 function shouldUseBasicMode() {
     var browser = getBrowser();
@@ -66,46 +66,9 @@ function init(isLimited) {
         data = new Blob([json], {
             'type': 'application/json'
         });
-    socket.send(data), isLimited ? (initBasicMode(), document.getElementById('video').style.display = 'none', document.getElementById('splash').style.display = 'inline') : (initRtcMode(), document.getElementById('splash').style.display = 'none');
+    socket.send(data), initRtcMode();
 }
 
-function initBasicMode() {
-    startBasicMode(8883);
-}
-
-function startBasicMode(port) {
-    var socket = new WebSocket(location.origin.replace('http://', 'ws://').concat(':').concat(port));
-    socket.binaryType = 'blob', socket.onopen = function () {}, socket.onmessage = function (message) {
-        if (message.data instanceof Blob) {
-            var objectURL = URL.createObjectURL(message.data);
-            document.getElementById('splash').src = objectURL, oldObjectURL && URL.revokeObjectURL(oldObjectURL), oldObjectURL = objectURL;
-        } else {
-            if (typeof message.data == 'string') {
-                switch (message.data) {
-                case '0':
-                    document.getElementById('splash').style.objectFit = 'contain';
-                    break;
-                case '90':
-                    document.getElementById('splash').style.objectFit = 'cover';
-                    break;
-                case '180':
-                    document.getElementById('splash').style.objectFit = 'cover';
-                    break;
-                case '270':
-                    document.getElementById('splash').style.objectFit = 'contain';
-                    break;
-                default:
-                    break;
-                }
-            }
-        }
-        socket && socket.send('ack');
-    }, socket.onclose = function (event) {
-        setTimeout(function () {
-            socket.close(), alternatePort = !alternatePort, alternatePort ? startBasicMode(8882) : startBasicMode(8883);
-        }, 2000);
-    };
-}
 document.getElementById('video') && document.getElementById('video').addEventListener('resize', function () {
     aspect == 0 && (document.getElementById('video').videoWidth > document.getElementById('video').videoHeight ? document.getElementById('video').style.objectFit = 'cover' : document.getElementById('video').style.objectFit = 'contain');
 });
