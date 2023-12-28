@@ -48,25 +48,25 @@ function main() {
 
 function showCastPlayer() {
 	disconnectWebRTC();
-	document.getElementById("cast_player").style.visibility = 'visible';
-	document.getElementById("video").style.visibility 			= 'hidden';
-	document.getElementById("splash").style.visibility 			= 'hidden';
+	document.getElementById("cast_player").style.display 	= 'inline';
+	document.getElementById("video").style.display 				= 'none';
+	document.getElementById("splash").style.display 			= 'none';
 }
 
 function showWebRTC(ip) {
 	playerManager.stop();
-	document.getElementById("cast_player").style.visibility = 'hidden';
-	document.getElementById("video").style.visibility 			= 'visible';
-	document.getElementById("splash").style.visibility 			= 'hidden';
+	document.getElementById("cast_player").style.display 	= 'none';
+	document.getElementById("video").style.display 				= 'inline';
+	document.getElementById("splash").style.display 			= 'none';
 	connectWebRTC(ip);
 }
 
 function showSplashScreen(url) {
 	playerManager.stop();
 	disconnectWebRTC();
-	document.getElementById("cast_player").style.visibility = 'hidden';
-	document.getElementById("video").style.visibility 			= 'hidden';
-	document.getElementById("splash").style.visibility 			= 'visible';
+	document.getElementById("cast_player").style.display 	= 'none';
+	document.getElementById("video").style.display 				= 'none';
+	document.getElementById("splash").style.display 			= 'inline';
 	document.getElementById("splash").src = url;
 }
 
