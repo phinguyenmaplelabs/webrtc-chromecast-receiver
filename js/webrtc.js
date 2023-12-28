@@ -137,7 +137,9 @@ function initRtcMode() {
 }
 
 function closeSocket() {
-    socket.onopen = function () {}, socket.onmessage = function () {}, socket.onerror = function () {}, socket.onclose = function () {}, socket.close();
+    if (socket) {
+        socket.onopen = function () {}, socket.onmessage = function () {}, socket.onerror = function () {}, socket.onclose = function () {}, socket.close();
+    }   
 }
 
 function setRemoteDescription(remoteDescription) {
@@ -237,17 +239,19 @@ function tryConnectingWebSocketAlternativePort(ip) {
     }, 1500);
 }
 
-export function connectWebRTC(ip) {
+function connectWebRTC(ip) {
     connect(ip, 8880);
     tryConnectingWebSocketAlternativePort(ip);
 }
 
-export function disconnectWebRTC() {
+function disconnectWebRTC() {
     closeSocket();
-    peerConnection.close();
+    if (peerConnection) {
+        peerConnection.close();
+        peerConnection  = null;
+    }
     connected       = false;
     aspect          = 0;
-    peerConnection  = null;
     socket          = null;
     alternatePort   = false;
     oldObjectURL    = null;
