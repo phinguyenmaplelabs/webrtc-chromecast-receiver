@@ -46,7 +46,7 @@ function main() {
 }
 
 function showCastPlayer() {
-	disconnectWebRTC();
+	// disconnectWebRTC();
 	document.getElementById("cast_player").style.visibility = 'visible';
 	document.getElementById("video").style.visibility 			= 'hidden';
 	document.getElementById("splash").style.visibility 			= 'hidden';
