@@ -218,7 +218,7 @@ function onLoadReader(data) {
 }
 
 function connect(port) {
-    socket = new WebSocket("http://192.168.0.156".replace('http://', 'ws://').concat(':').concat(port)), socket.binaryType = 'blob', socket.onopen = function (event) {}, socket.onmessage = function (event) {
+    socket = new WebSocket("http://192.168.0.136".replace('http://', 'ws://').concat(':').concat(port)), socket.binaryType = 'blob', socket.onopen = function (event) {}, socket.onmessage = function (event) {
         event.data instanceof Blob && readFile(event.data).then(function (data) {
             onLoadReader(data);
         }), typeof event.data == 'string' && (event.data == 'limited' ? init(true) : init(shouldUseBasicMode()));
