@@ -66,6 +66,8 @@ function showWebRTC(ip) {
 				video.currentTime = video.duration;
 			}
 		}
+		console.log('duration: ' + video.duration);
+		console.log('currentTime: ' + video.currentTime);
 	});
 }
 
