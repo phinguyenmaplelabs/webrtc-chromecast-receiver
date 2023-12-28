@@ -217,23 +217,22 @@ function onLoadReader(data) {
     }
 }
 
-function connect(port) {
-    socket = new WebSocket("http://192.168.0.156".replace('http://', 'ws://').concat(':').concat(port)), socket.binaryType = 'blob', socket.onopen = function (event) {}, socket.onmessage = function (event) {
+function connect(ip, port) {
+    socket = new WebSocket('ws://'.concat(ip).concat(':').concat(port)), socket.binaryType = 'blob', socket.onopen = function (event) {}, socket.onmessage = function (event) {
         event.data instanceof Blob && readFile(event.data).then(function (data) {
             onLoadReader(data);
         }), typeof event.data == 'string' && (event.data == 'limited' ? init(true) : init(shouldUseBasicMode()));
     }, socket.onclose = function (event) {
         setTimeout(function () {
             if (socket.readyState == 1) return;
-            tryConnectingWebSocketAlternativePort();
+            tryConnectingWebSocketAlternativePort(ip);
         }, 1500);
     };
 }
-connect(8880), tryConnectingWebSocketAlternativePort();
 
-function tryConnectingWebSocketAlternativePort() {
+function tryConnectingWebSocketAlternativePort(ip) {
     setTimeout(function () {
         if (socket.readyState == 1) return;
-        socket.close(), alternatePort = !alternatePort, alternatePort ? connect(8881) : connect(8880);
+        socket.close(), alternatePort = !alternatePort, alternatePort ? connect(ip, 8881) : connect(ip, 8880);
     }, 1500);
 }

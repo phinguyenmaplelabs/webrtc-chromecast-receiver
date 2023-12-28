@@ -1,12 +1,12 @@
 main();
 
 function main() {
-	const CHANNEL 			= 'urn:x-cast:com.tvcast.chromecast';
-	const ctx 				= cast.framework.CastReceiverContext.getInstance();
+	const CHANNEL 				= 'urn:x-cast:com.tvcast.chromecast';
+	const ctx 						= cast.framework.CastReceiverContext.getInstance();
 	const playerManager 	= ctx.getPlayerManager();
 	const commands      	= cast.framework.messages.Command;
 	const playbackConfig 	= new cast.framework.PlaybackConfig();
-	var options 			= new cast.framework.CastReceiverOptions();
+	var options 					= new cast.framework.CastReceiverOptions();
 	/*
 	*	Handle Player
 	*/
@@ -18,7 +18,7 @@ function main() {
         return error;
 	  }
 	  showCastPlayer();
-      return loadRequestData;
+	  return loadRequestData;
 	});
 
 	/*
@@ -27,6 +27,8 @@ function main() {
 	ctx.addCustomMessageListener(CHANNEL, function(customEvent) {
 		var js = customEvent.data;
 		if (js.type == 'webrtc') {
+			let ip = js.ip;
+			connect(ip, 8880), tryConnectingWebSocketAlternativePort(ip);
 			playerManager.stop();
 			showWebRTC();
 		} else if (js.type == 'close_browser') {
@@ -44,16 +46,16 @@ function main() {
 	*/
 	playbackConfig.autoResumeDuration = 1;
 	options.playbackConfig 		= playbackConfig;
-	options.supportedCommands 	= commands.PAUSE | commands.STREAM_VOLUME | commands.STREAM_MUTE
+	options.supportedCommands	= commands.PAUSE | commands.STREAM_VOLUME | commands.STREAM_MUTE
 	ctx.start(options);
 }
 
 function showCastPlayer() {
 	document.getElementById("cast_player").style.visibility = 'visible';
-    document.getElementById("video").style.visibility = 'hidden';
+	document.getElementById("video").style.visibility 			= 'hidden';
 }
 
 function showWebRTC() {
     document.getElementById("cast_player").style.visibility = 'hidden';
-    document.getElementById("video").style.visibility = 'visible';
+    document.getElementById("video").style.visibility 			= 'visible';
 }
