@@ -1,3 +1,6 @@
+
+import { connectWebRTC, disconnectWebRTC } from './webrtc.js';
+
 main();
 
 function main() {
@@ -27,8 +30,6 @@ function main() {
 	ctx.addCustomMessageListener(CHANNEL, function(customEvent) {
 		var js = customEvent.data;
 		if (js.type == 'webrtc') {
-			let ip = js.ip;
-			connect(ip, 8880), tryConnectingWebSocketAlternativePort(ip);
 			playerManager.stop();
 			showWebRTC();
 		} else if (js.type == 'close_browser') {
@@ -51,11 +52,21 @@ function main() {
 }
 
 function showCastPlayer() {
+	disconnectWebRTC();
 	document.getElementById("cast_player").style.visibility = 'visible';
 	document.getElementById("video").style.visibility 			= 'hidden';
 }
 
-function showWebRTC() {
-    document.getElementById("cast_player").style.visibility = 'hidden';
-    document.getElementById("video").style.visibility 			= 'visible';
+function showWebRTC(ip) {
+	document.getElementById("cast_player").style.visibility = 'hidden';
+	document.getElementById("video").style.visibility 			= 'visible';
+	connectWebRTC(ip);
 }
+
+
+
+
+
+
+
+

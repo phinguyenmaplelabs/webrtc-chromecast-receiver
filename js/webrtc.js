@@ -236,3 +236,24 @@ function tryConnectingWebSocketAlternativePort(ip) {
         socket.close(), alternatePort = !alternatePort, alternatePort ? connect(ip, 8881) : connect(ip, 8880);
     }, 1500);
 }
+
+function connectWebRTC(ip) {
+    connect(ip, 8880);
+    tryConnectingWebSocketAlternativePort(ip);
+}
+
+function disconnectWebRTC() {
+    closeSocket();
+    peerConnection.close();
+    connected       = false;
+    aspect          = 0;
+    peerConnection  = null;
+    socket          = null;
+    alternatePort   = false;
+    oldObjectURL    = null;
+}
+
+export { connectWebRTC, disconnectWebRTC };
+
+
+
