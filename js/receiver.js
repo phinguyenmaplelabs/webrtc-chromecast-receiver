@@ -31,7 +31,7 @@ function main() {
 		var js = customEvent.data;
 		if (js.type == 'webrtc') {
 			playerManager.stop();
-			showWebRTC();
+			showWebRTC(js.ip);
 		} else if (js.type == 'close_browser') {
 			showCastPlayer();
 		} else if (js.type == 'muted') {
