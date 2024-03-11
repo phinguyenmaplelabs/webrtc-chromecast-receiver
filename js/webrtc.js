@@ -185,8 +185,8 @@ function onLoadReader(data) {
 
 function showSplash(show) {
     document.getElementById('video').style.display = show ? 'none'   : 'inline';
-    document.getElementById('image').style.display = show ? 'inline' : 'none';
-    document.getElementById('image').style.objectFit = 'cover';
+    document.getElementById('splash').style.display = show ? 'inline' : 'none';
+    document.getElementById('splash').style.objectFit = 'cover';
 }
 
 function connect(ip, port) {
