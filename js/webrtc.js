@@ -85,7 +85,7 @@ function initRtcMode() {
     }, false), peerConnection.onconnectionstatechange = function (event) {
         switch (peerConnection.connectionState) {
         case 'connected':
-            showSplash(false);, console.log('connected');
+            showSplash(false), console.log('connected');
             break;
         case 'disconnected':
             showSplash(true), console.log('disconnected'), socket.close();
