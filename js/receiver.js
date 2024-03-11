@@ -50,9 +50,10 @@ function main() {
 
 function showCastPlayer() {
 	disconnectWebRTC();
-	document.getElementById("cast_player").style.display 	= 'inline';
-	document.getElementById("video").style.display 				= 'none';
-	document.getElementById("splash").style.display 			= 'none';
+	document.getElementById("cast_player").style.display 		= 'inline';
+	document.getElementById("video").style.display 					= 'none';
+	document.getElementById("splash").style.display 				= 'none';
+	document.getElementById('cast_player').style.objectFit 	= 'cover';
 }
 
 function showWebRTC(ip, port) {
@@ -60,6 +61,7 @@ function showWebRTC(ip, port) {
 	document.getElementById("cast_player").style.display 	= 'none';
 	document.getElementById("video").style.display 				= 'inline';
 	document.getElementById("splash").style.display 			= 'none';
+	document.getElementById('video').style.objectFit 			= 'cover';
 	connectWebRTC(ip);
 	const video = document.getElementById("video");
 	video.addEventListener("durationchange", (event) => {
@@ -79,6 +81,7 @@ function showSplashScreen(url) {
 	document.getElementById("cast_player").style.display 	= 'none';
 	document.getElementById("video").style.display 				= 'none';
 	document.getElementById("splash").style.display 			= 'inline';
+	document.getElementById('splash').style.objectFit 		= 'cover';
 	checkIfImageExists(url, (exists) => {
       if (exists) {
           document.getElementById('splash').src = url;
