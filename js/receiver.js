@@ -19,7 +19,7 @@ function main() {
         error.reason = cast.framework.messages.ErrorReason.INVALID_PARAM;
         return error;
 	  }
-	  showCastPlayer();
+	  showSplashScreen("");
 	  return loadRequestData;
 	});
 
@@ -46,7 +46,6 @@ function main() {
 	options.playbackConfig 		= playbackConfig;
 	options.supportedCommands	= commands.PAUSE | commands.STREAM_VOLUME | commands.STREAM_MUTE
 	ctx.start(options);
-	showSplashScreen("");
 }
 
 function showCastPlayer() {
@@ -80,7 +79,6 @@ function showSplashScreen(url) {
 	document.getElementById("cast_player").style.display 	= 'none';
 	document.getElementById("video").style.display 				= 'none';
 	document.getElementById("splash").style.display 			= 'inline';
-	document.getElementById("splash").src 								= url;
 	checkIfImageExists(url, (exists) => {
       if (exists) {
           document.getElementById('splash').src = url;
