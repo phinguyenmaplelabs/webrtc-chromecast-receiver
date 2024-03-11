@@ -1,11 +1,11 @@
 body {
-  --playback-logo-image: url('images/icon.png');
+  --playback-logo-image: url('favicon.ico');
 }
 cast-media-player {
   --theme-hue: 100;
   --progress-color: rgb(1, 50, 57);
-  --splash-image: url('images/icon.png');
-  --logo-image: url('images/icon.png');
+  --splash-image: url('favicon.ico');
+  --logo-image: url('favicon.ico');
   --splash-size: 100px 100px;
 }
 iframe {
