@@ -6,7 +6,7 @@ var connected = false,
     socket = null,
     alternatePort = false,
     oldObjectURL = null;
-    document.getElementById('video').style.display = 'none';
+showSplash(true);
 
 function shouldUseBasicMode() {
     var browser = getBrowser();
@@ -85,21 +85,22 @@ function initRtcMode() {
     }, false), peerConnection.onconnectionstatechange = function (event) {
         switch (peerConnection.connectionState) {
         case 'connected':
-            document.getElementById('video').style.display = 'inline', console.log('connected');
+            showSplash(false);, console.log('connected');
             break;
         case 'disconnected':
-            console.log('disconnected'), closeSocket();
+            showSplash(true), console.log('disconnected'), socket.close();
         case 'failed':
-            console.log('failed');
+            showSplash(true), console.log('failed'), socket.close();
             break;
         case 'closed':
-            console.log('closed');
+            closeSocket(), console.log('closed');
             break;
         }
     };
 }
 
 function closeSocket() {
+    showSplash(true);
     if (socket) {
         socket.onopen = function () {}, socket.onmessage = function () {}, socket.onerror = function () {}, socket.onclose = function () {}, socket.close();
     }   
@@ -180,6 +181,12 @@ function onLoadReader(data) {
         aspect == 2 && (document.getElementById('video').style.objectFit = 'cover');
         return;
     }
+}
+
+function showSplash(show) {
+    document.getElementById('video').style.display = show ? 'none'   : 'inline';
+    document.getElementById('image').style.display = show ? 'inline' : 'none';
+    document.getElementById('image').style.objectFit = 'cover';
 }
 
 function connect(ip, port) {
