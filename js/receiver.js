@@ -80,9 +80,31 @@ function showSplashScreen(url) {
 	document.getElementById("video").style.display 				= 'none';
 	document.getElementById("splash").style.display 			= 'inline';
 	document.getElementById("splash").src 								= url;
+	checkIfImageExists(url, (exists) => {
+      if (exists) {
+          document.getElementById('splash').src = url;
+      } else {
+          document.getElementById('splash').src = "splash.jpeg";
+      }
+    });
 }
 
-
+function checkIfImageExists(url, callback) {
+  const img = new Image();
+  img.src = url;
+  
+  if (img.complete) {
+    callback(true);
+  } else {
+    img.onload = () => {
+      callback(true);
+    };
+    
+    img.onerror = () => {
+      callback(false);
+    };
+  }
+}
 
 
 
