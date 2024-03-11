@@ -6,7 +6,6 @@ var connected = false,
     socket = null,
     alternatePort = false,
     oldObjectURL = null;
-showSplash(true);
 
 function shouldUseBasicMode() {
     var browser = getBrowser();
