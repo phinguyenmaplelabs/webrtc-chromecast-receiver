@@ -5,6 +5,7 @@ const playerManager 	= ctx.getPlayerManager();
 const commands      	= cast.framework.messages.Command;
 const playbackConfig 	= new cast.framework.PlaybackConfig();
 
+showSplashScreen("");
 main();
 
 function main() {
