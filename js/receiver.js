@@ -49,7 +49,9 @@ function main() {
 }
 
 function showCastPlayer() {
-	disconnectWebRTC();
+	if (typeof disconnectWebRTC === 'function') {
+		disconnectWebRTC();
+	}
 	document.getElementById("cast_player").style.display 		= 'inline';
 	document.getElementById("video").style.display 					= 'none';
 	document.getElementById("splash").style.display 				= 'none';
@@ -76,8 +78,10 @@ function showWebRTC(ip, port) {
 }
 
 function showSplashScreen(url) {
+	if (typeof disconnectWebRTC === 'function') {
+		disconnectWebRTC();
+	}
 	playerManager.stop();
-	disconnectWebRTC();
 	document.getElementById("cast_player").style.display 	= 'none';
 	document.getElementById("video").style.display 				= 'none';
 	document.getElementById("splash").style.display 			= 'inline';
