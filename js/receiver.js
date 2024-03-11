@@ -19,7 +19,6 @@ function main() {
         error.reason = cast.framework.messages.ErrorReason.INVALID_PARAM;
         return error;
 	  }
-	  showSplashScreen();
 	  return loadRequestData;
 	});
 
@@ -46,6 +45,7 @@ function main() {
 	options.playbackConfig 		= playbackConfig;
 	options.supportedCommands	= commands.PAUSE | commands.STREAM_VOLUME | commands.STREAM_MUTE
 	ctx.start(options);
+	showSplashScreen();
 }
 
 function showCastPlayer() {
