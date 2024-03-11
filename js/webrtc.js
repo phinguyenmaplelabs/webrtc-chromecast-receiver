@@ -73,6 +73,7 @@ document.getElementById('video') && document.getElementById('video').addEventLis
 });
 
 function initRtcMode() {
+    showSplash(true);
     var optional = {
             'DtlsSrtpKeyAgreement': true
         },
