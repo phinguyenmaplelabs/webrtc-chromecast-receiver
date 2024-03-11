@@ -19,7 +19,7 @@ function main() {
         error.reason = cast.framework.messages.ErrorReason.INVALID_PARAM;
         return error;
 	  }
-	  showSplashScreen("");
+	  showSplashScreen();
 	  return loadRequestData;
 	});
 
@@ -89,20 +89,25 @@ function showSplashScreen(url) {
 }
 
 function checkIfImageExists(url, callback) {
-  const img = new Image();
-  img.src = url;
+	if (url) {
+		const img = new Image();
+  	img.src = url;
   
-  if (img.complete) {
-    callback(true);
-  } else {
-    img.onload = () => {
-      callback(true);
-    };
+  	if (img.complete) {
+    	callback(true);
+  	} else {
+    	img.onload = () => {
+      	callback(true);
+    	};
     
-    img.onerror = () => {
-      callback(false);
-    };
-  }
+    	img.onerror = () => {
+      	callback(false);
+    	};
+  	}
+	} else {
+		callback(false);
+	}
+  
 }
 
 
