@@ -5,7 +5,6 @@ const playerManager 	= ctx.getPlayerManager();
 const commands      	= cast.framework.messages.Command;
 const playbackConfig 	= new cast.framework.PlaybackConfig();
 
-showSplashScreen("");
 main();
 
 function main() {
@@ -47,6 +46,7 @@ function main() {
 	options.playbackConfig 		= playbackConfig;
 	options.supportedCommands	= commands.PAUSE | commands.STREAM_VOLUME | commands.STREAM_MUTE
 	ctx.start(options);
+	showSplashScreen("");
 }
 
 function showCastPlayer() {
