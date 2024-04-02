@@ -17,10 +17,8 @@ function main() {
                       cast.framework.messages.ErrorType.LOAD_FAILED);
       if (!loadRequestData.media) {
         error.reason = cast.framework.messages.ErrorReason.INVALID_PARAM;
-        showSplashScreen();
         return error;
 	  }
-	  showCastPlayer();
 	  return loadRequestData;
 	});
 
@@ -31,6 +29,8 @@ function main() {
 		var js = customEvent.data;
 		if (js.type == 'WEB_RTC') {
 			showWebRTC(js.ip, js.port);
+		} else if (js.type == 'CAST_PLAYER') {
+			showCastPlayer();
 		} else if (js.type == 'SPLASH_SCREEN') {
 			showSplashScreen(js.url);
 		} else if (js.type == 'TEXT') {

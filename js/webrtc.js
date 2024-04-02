@@ -7,56 +7,6 @@ var connected = false,
     alternatePort = false,
     oldObjectURL = null;
 
-function shouldUseBasicMode() {
-    var browser = getBrowser();
-    if (browser == 'Tesla') return false;
-    if (browser == 'Samsung' || browser == 'Unknown') return true;
-    if (browser == 'Chrome' && getBrowserVersion() <= 79) return true;
-    if (browser == 'Safari' && getBrowserVersion() < 11) return true;
-    return false;
-}
-
-function getBrowser() {
-    var userAgent = navigator['userAgent'];
-    if (userAgent.indexOf('Tesla') > -1) return 'Tesla';
-    else {
-        if (userAgent.indexOf('Firefox') > -1) return 'Firefox';
-        else {
-            if (userAgent.indexOf('SamsungBrowser') > -1) return 'Samsung';
-            else {
-                if (userAgent.indexOf('Opera') > -1 || userAgent.indexOf('OPR') > -1) return 'Opera';
-                else {
-                    if (userAgent.indexOf('Trident') > -1) return 'Internet Explorer';
-                    else {
-                        if (userAgent.indexOf('Edge') > -1) return 'Edge';
-                        else {
-                            if (userAgent.indexOf('Chrome') > -1) return 'Chrome';
-                            else return userAgent.indexOf('Safari') > -1 ? 'Safari' : 'Unknown';
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-function getBrowserVersion() {
-    var userAgent = navigator['userAgent'],
-        version, info = userAgent.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-    if (/trident/i ['test'](info[1])) return version = /\brv[ :]+(\d+)/g ['exec'](userAgent) || [], {
-        'name': 'IE',
-        'version': version[1] || ''
-    };
-    if (info[1] === 'Chrome') {
-        version = userAgent.match(/\bOPR|Edge\/(\d+)/);
-        if (version != null) return {
-            'name': 'Opera',
-            'version': version[1]
-        };
-    }
-    return info = info[2] ? [info[1], info[2]] : [navigator.appName, navigator.appVersion, '-?'], (version = userAgent.match(/version\/(\d+)/i)) != null && info.splice(1, 1, version[1]), info[1];
-}
-
 function init(isLimited) {
     var mode = isLimited ? 'limited' : 'full',
         json = JSON.stringify({
@@ -88,11 +38,22 @@ function initRtcMode() {
             showSplash(false), console.log('connected');
             break;
         case 'disconnected':
+            /*
+             * Đóng socket hiện tại, nhưng timer của hàm tryConnectingWebSocketAlternativePort bên dưới sẽ tự động connect lại
+             * (Suy nghĩ thêm giúp anh chỗ này....)
+             */
             showSplash(true), console.log('disconnected'), socket.close();
         case 'failed':
+            /*
+             * Đóng socket hiện tại, nhưng timer của hàm tryConnectingWebSocketAlternativePort bên dưới sẽ tự động connect lại
+             * (Suy nghĩ thêm giúp anh chỗ này....)
+             */
             showSplash(true), console.log('failed'), socket.close();
             break;
         case 'closed':
+            /*
+             * Đóng hoàn toàn Socket, ko tự động connect lại
+             */
             closeSocket(), console.log('closed');
             break;
         }
@@ -193,7 +154,7 @@ function connect(ip, port) {
     socket = new WebSocket('ws://'.concat(ip).concat(':').concat(port)), socket.binaryType = 'blob', socket.onopen = function (event) {}, socket.onmessage = function (event) {
         event.data instanceof Blob && readFile(event.data).then(function (data) {
             onLoadReader(data);
-        }), typeof event.data == 'string' && (event.data == 'limited' ? init(true) : init(shouldUseBasicMode()));
+        }), typeof event.data == 'string' && (event.data == 'limited' ? init(true) : init(false));
     }, socket.onclose = function (event) {
         setTimeout(function () {
             if (socket.readyState == 1) return;
