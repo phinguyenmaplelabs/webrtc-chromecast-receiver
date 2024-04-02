@@ -52,18 +52,19 @@ function showCastPlayer() {
 	if (typeof disconnectWebRTC === 'function') {
 		disconnectWebRTC();
 	}
-	document.getElementById("cast_player").style.display 		= 'inline';
-	document.getElementById("video").style.display 					= 'none';
-	document.getElementById("splash").style.display 				= 'none';
+	document.getElementById("cast_player").style.display    = 'inline';
+	document.getElementById("video").style.display 		    = 'none';
+	document.getElementById("splash").style.display 	    = 'none';
 	document.getElementById('cast_player').style.objectFit 	= 'cover';
 }
 
 function showWebRTC(ip, port) {
 	playerManager.stop();
 	document.getElementById("cast_player").style.display 	= 'none';
-	document.getElementById("video").style.display 				= 'inline';
-	document.getElementById("splash").style.display 			= 'none';
-	document.getElementById('video').style.objectFit 			= 'cover';
+	document.getElementById("video").style.display 	        = 'none';
+	document.getElementById("splash").style.display         = 'inline';
+	document.getElementById('video').style.objectFit 	    = 'cover';
+    document.getElementById('splash').style.objectFit       = 'cover';
 	connectWebRTC(ip);
 	const video = document.getElementById("video");
 	video.addEventListener("durationchange", (event) => {
@@ -83,8 +84,8 @@ function showSplashScreen(url) {
 	}
 	playerManager.stop();
 	document.getElementById("cast_player").style.display 	= 'none';
-	document.getElementById("video").style.display 				= 'none';
-	document.getElementById("splash").style.display 			= 'inline';
+	document.getElementById("video").style.display 		    = 'none';
+	document.getElementById("splash").style.display 	    = 'inline';
 	document.getElementById('splash').style.objectFit 		= 'cover';
 	checkIfImageExists(url, (exists) => {
       if (exists) {
